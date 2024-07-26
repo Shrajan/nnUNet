@@ -118,6 +118,7 @@ def preprocessing_iterator_fromfiles(list_of_lists: List[List[str]],
         yield item
     [p.join() for p in processes]
 
+
 class PreprocessAdapter(DataLoader):
     def __init__(self, list_of_lists: List[List[str]],
                  list_of_segs_from_prev_stage_files: Union[None, List[str]],
@@ -146,7 +147,7 @@ class PreprocessAdapter(DataLoader):
 
     def generate_train_batch(self):
         idx = self.get_indices()[0]
-        files, seg_prev_stage, ofile = self._data[idx][0]
+        files, seg_prev_stage, ofile = self._data[idx]
         # if we have a segmentation from the previous stage we have to process it together with the images so that we
         # can crop it appropriately (if needed). Otherwise it would just be resized to the shape of the data after
         # preprocessing and then there might be misalignments
@@ -190,7 +191,7 @@ class PreprocessAdapterFromNpy(DataLoader):
 
     def generate_train_batch(self):
         idx = self.get_indices()[0]
-        image, seg_prev_stage, props, ofname = self._data[idx][0]
+        image, seg_prev_stage, props, ofname = self._data[idx]
         # if we have a segmentation from the previous stage we have to process it together with the images so that we
         # can crop it appropriately (if needed). Otherwise it would just be resized to the shape of the data after
         # preprocessing and then there might be misalignments
