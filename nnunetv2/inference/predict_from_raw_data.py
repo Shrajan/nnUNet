@@ -463,6 +463,7 @@ class nnUNetPredictor(object):
             else:
                 return ret
 
+    @torch.inference_mode()
     def predict_logits_from_preprocessed_data(self, data: torch.Tensor) -> torch.Tensor:
         """
         IMPORTANT! IF YOU ARE RUNNING THE CASCADE, THE SEGMENTATION FROM THE PREVIOUS STAGE MUST ALREADY BE STACKED ON
@@ -474,7 +475,9 @@ class nnUNetPredictor(object):
         n_threads = torch.get_num_threads()
         torch.set_num_threads(default_num_processes if default_num_processes < n_threads else n_threads)
         prediction = None
+        self.network.eval()
 
+        #print(len(self.list_of_parameters))
         for params in self.list_of_parameters:
 
             # messing with state dict names...

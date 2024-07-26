@@ -33,7 +33,8 @@ class ExperimentPlanner(object):
         """
 
         self.dataset_name = maybe_convert_to_dataset_name(dataset_name_or_id)
-        self.suppress_transpose = suppress_transpose
+        #self.suppress_transpose = suppress_transpose
+        self.suppress_transpose = True
         self.raw_dataset_folder = join(nnUNet_raw, self.dataset_name)
         preprocessed_folder = join(nnUNet_preprocessed, self.dataset_name)
         self.dataset_json = load_json(join(self.raw_dataset_folder, 'dataset.json'))

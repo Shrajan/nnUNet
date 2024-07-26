@@ -81,7 +81,6 @@ class DatasetFingerprintExtractor(object):
                 'max': maxi,
                 'percentile_99_5': percentile_99_5,
                 'percentile_00_5': percentile_00_5,
-
             })
 
         return intensities_per_channel, intensity_statistics_per_channel
@@ -185,6 +184,8 @@ class DatasetFingerprintExtractor(object):
                     'max': float(np.max(foreground_intensities_per_channel[i])),
                     'percentile_99_5': float(percentile_99_5),
                     'percentile_00_5': float(percentile_00_5),
+                    'minSUV': 0.0,
+                    'maxSUV': 7.614030212561289
                 }
 
             fingerprint = {

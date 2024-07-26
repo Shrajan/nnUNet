@@ -212,6 +212,15 @@ class nnUNetTrainer(object):
                 self.label_manager.num_segmentation_heads,
                 self.enable_deep_supervision
             ).to(self.device)
+
+            num_parameters = sum(p.numel() for p in self.network.parameters() if p.requires_grad)
+
+            print("Number of parameters: ", num_parameters)
+            print(self.network)
+            #for name, param in self.network.parameters():
+            #    if param.requires_grad:
+            #        print(name, param.shape)
+
             # compile network for free speedup
             if self._do_i_compile():
                 self.print_to_log_file('Using torch.compile...')
