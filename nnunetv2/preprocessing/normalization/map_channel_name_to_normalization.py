@@ -3,7 +3,7 @@ from typing import Type
 from nnunetv2.preprocessing.normalization.default_normalization_schemes import CTNormalization, NoNormalization, \
     ZScoreNormalization, RescaleTo01Normalization, RGBTo01Normalization, ImageNormalization
 
-from nnunetv2.preprocessing.normalization.custom_pet_normalization_schemes import SUVClipNormalization
+from nnunetv2.preprocessing.normalization.custom_pet_normalization_schemes import SUVClipNormalization, SUVPercentClipNormalization
 
 channel_name_to_normalization_mapping = {
     'ct': CTNormalization,
@@ -11,7 +11,8 @@ channel_name_to_normalization_mapping = {
     'zscore': ZScoreNormalization,
     'rescale_to_0_1': RescaleTo01Normalization,
     'rgb_to_0_1': RGBTo01Normalization,
-    'suv_clip': SUVClipNormalization
+    'suv_clip': SUVClipNormalization,
+    'suv_percent_clip': SUVPercentClipNormalization
 }
 
 
