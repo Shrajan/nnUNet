@@ -53,18 +53,21 @@ Use a recent version of Python! 3.9 or newer is guaranteed to work!
 install the latest version with support for your hardware (cuda, mps, cpu).
 **DO NOT JUST `pip install nnunetv2` WITHOUT PROPERLY INSTALLING PYTORCH FIRST**. For maximum speed, consider 
 [compiling pytorch yourself](https://github.com/pytorch/pytorch#from-source) (experienced users only!). 
-2) Install nnU-Net depending on your use case:
-    1) For use as **standardized baseline**, **out-of-the-box segmentation algorithm** or for running 
-     **inference with pretrained models**:
-
-       ```pip install nnunetv2```
-
-    2) For use as integrative **framework** (this will create a copy of the nnU-Net code on your computer so that you
+2) Install nnU-Net:
+    1) We will use as an integrative **framework** (this will create a copy of the nnU-Net code on your computer so that you
    can modify it as needed):
           ```bash
-          git clone https://github.com/MIC-DKFZ/nnUNet.git
+          git clone https://github.com/Shrajan/nnUNet.git
           cd nnUNet
           pip install -e .
+          cd ../
+          ```
+    2) Additional U-Net variants (Attention U-Net, IB-U-Nets, etc.) have been added, and these can be availed by re-installing my version of the **dynamic-network-architectures** repository:
+          ```bash
+          git clone https://github.com/Shrajan/dynamic-network-architectures.git
+          cd dynamic-network-architectures
+          pip install -e .
+          cd ../
           ```
 3) nnU-Net needs to know where you intend to save raw data, preprocessed data and trained models. For this you need to
    set a few environment variables. Please follow the instructions [here](setting_up_paths.md).
