@@ -5,6 +5,7 @@ from nnunetv2.experiment_planning.experiment_planners.default_experiment_planner
 from nnunetv2.experiment_planning.experiment_planners.residual_unets.residual_encoder_unet_planners import \
     nnUNetPlannerResEncL
 from nnunetv2.preprocessing.resampling.resample_torch import resample_torch_fornnunet
+from dynamic_network_architectures.architectures.unet import DWS_ResidualEncoderUNet, DWS_ResidualEncoderUNet_MLC
 
 
 class nnUNetPlannerResEncL_torchres(nnUNetPlannerResEncL):
@@ -179,3 +180,23 @@ class nnUNetPlanner_torchres(ExperimentPlanner):
             'memefficient_seg_resampling': False
         }
         return resampling_fn, resampling_fn_kwargs
+
+class nnUNetPlannerResEncL_torchres_DWS(nnUNetPlannerResEncL_torchres):
+    def __init__(self, dataset_name_or_id: Union[str, int],
+                 gpu_memory_target_in_gb: float = 20,
+                 preprocessor_name: str = 'DefaultPreprocessor', plans_name: str = 'nnUNetResEncUNetLPlans_torchres_DWS',
+                 overwrite_target_spacing: Union[List[float], Tuple[float, ...]] = None,
+                 suppress_transpose: bool = False):
+        super().__init__(dataset_name_or_id, gpu_memory_target_in_gb, preprocessor_name, plans_name,
+                         overwrite_target_spacing, suppress_transpose)
+        self.UNet_class = DWS_ResidualEncoderUNet
+
+class nnUNetPlannerResEncL_torchres_DWS_MLC(nnUNetPlannerResEncL_torchres):
+    def __init__(self, dataset_name_or_id: Union[str, int],
+                 gpu_memory_target_in_gb: float = 20,
+                 preprocessor_name: str = 'DefaultPreprocessor', plans_name: str = 'nnUNetResEncUNetLPlans_torchres_DWS_MLC',
+                 overwrite_target_spacing: Union[List[float], Tuple[float, ...]] = None,
+                 suppress_transpose: bool = False):
+        super().__init__(dataset_name_or_id, gpu_memory_target_in_gb, preprocessor_name, plans_name,
+                         overwrite_target_spacing, suppress_transpose)
+        self.UNet_class = DWS_ResidualEncoderUNet_MLC

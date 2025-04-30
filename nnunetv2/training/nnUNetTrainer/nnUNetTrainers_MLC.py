@@ -10,10 +10,36 @@ from nnunetv2.training.loss.compound_losses import DC_and_CE_loss, DC_and_BCE_lo
 from nnunetv2.training.loss.deep_supervision import DeepSupervisionWrapperV2
 from nnunetv2.training.loss.dice import MemoryEfficientSoftDiceLoss
 
+
+class nnUNetTrainer_1en3(nnUNetTrainer):
+    def __init__(self, plans: dict, configuration: str, fold: int, dataset_json: dict, unpack_dataset: bool = True,
+                 device: torch.device = torch.device('cuda')):
+        super().__init__(plans, configuration, fold, dataset_json, unpack_dataset, device)
+        self.initial_lr = 1e-3
+
+class nnUNetTrainer_2epochs(nnUNetTrainer):
+    """
+    Trainer to unit test stuff.
+    """
+    def __init__(self, plans: dict, configuration: str, fold: int, dataset_json: dict, unpack_dataset: bool = True,
+                 device: torch.device = torch.device('cuda')):
+        super().__init__(plans, configuration, fold, dataset_json, unpack_dataset, device)
+        self.num_iterations_per_epoch = 250
+        self.num_val_iterations_per_epoch = 50
+        self.num_epochs = 2
+        
+
 class nnUNetTrainer_MLC(nnUNetTrainer):
     """
     Multi-label classification loss using output of the bottleneck layer. 
     """
+    def __init__(self, plans: dict, configuration: str, fold: int, dataset_json: dict, unpack_dataset: bool = True,
+                 device: torch.device = torch.device('cuda')):
+        super().__init__(plans, configuration, fold, dataset_json, unpack_dataset, device)
+        self.num_iterations_per_epoch = 250
+        self.num_val_iterations_per_epoch = 50
+        self.num_epochs = 1000
+        
     def _build_loss(self):
         if self.label_manager.has_regions:
             loss = DC_and_BCE_loss({},
@@ -101,4 +127,10 @@ class nnUNetTrainerAdam1en3_MLC(nnUNetTrainerAdam_MLC):
         super().__init__(plans, configuration, fold, dataset_json, unpack_dataset, device)
         self.initial_lr = 1e-3
         
-    
+class nnUNetTrainer_MLC_NoMirroring(nnUNetTrainer_MLC):
+    def configure_rotation_dummyDA_mirroring_and_inital_patch_size(self):
+        rotation_for_DA, do_dummy_2d_data_aug, initial_patch_size, mirror_axes = \
+            super().configure_rotation_dummyDA_mirroring_and_inital_patch_size()
+        mirror_axes = None
+        self.inference_allowed_mirroring_axes = None
+        return rotation_for_DA, do_dummy_2d_data_aug, initial_patch_size, mirror_axes

@@ -11,8 +11,7 @@ class nnUNetPlannerIBUNet(ExperimentPlanner):
                  overwrite_target_spacing: Union[List[float], Tuple[float, ...]] = None,
                  suppress_transpose: bool = False):
         """
-        Attention U-Net.
-        Everything remains the same, except for the Attention UNet architecture.
+        IB U-Net.
         """
         super().__init__(dataset_name_or_id, gpu_memory_target_in_gb, preprocessor_name, plans_name,
                          overwrite_target_spacing, suppress_transpose)
@@ -38,8 +37,7 @@ class nnUNetPlannerIBAttUNet(ExperimentPlanner):
                  overwrite_target_spacing: Union[List[float], Tuple[float, ...]] = None,
                  suppress_transpose: bool = False):
         """
-        Attention U-Net.
-        Everything remains the same, except for the Attention UNet architecture.
+        IB Attention U-Net.
         """
         super().__init__(dataset_name_or_id, gpu_memory_target_in_gb, preprocessor_name, plans_name,
                          overwrite_target_spacing, suppress_transpose)
@@ -58,4 +56,4 @@ class nnUNetPlannerIBAttUNet(ExperimentPlanner):
             return self.plans_identifier + '_' + configuration_name
 
 if __name__ == '__main__':
-    nnUNetPlannerAttUNet(2, 8).plan_experiment()
+    nnUNetPlannerIBAttUNet(2, 8).plan_experiment()
