@@ -35,10 +35,10 @@ nnUNetv2_predict -i INPUT_FOLDER -o OUTPUT_FOLDER -d DATASET_ID -c CONFIGURATION
 ```
 1. However, it is worth noting that, `nnUNetv2_plan_and_preprocess` uses the default `ExperimentPlanner`. This command creates a plans file called `nnUNetPlans` in the preprocessed dataset folder. By default `nnUNetv2_train` and `nnUNetv2_predict` make use of `nnUNetPlans`, unless you modify using the command line input.
 2. Additionally, when you run `nnUNetv2_plan_and_preprocess`, in the background, these are used individually: `nnUNetv2_extract_fingerprint`, `nnUNetv2_plan_experiment` and `nnUNetv2_preprocess` (in that order).
-3. So, to use extra U-Net variants, we need to architecture-specific ***planners*** during preprocessing, and their corresponding ***plans*** file when training and testing.
-4. The various architecture-specific ***planners*** can be found in `nnunetv2/experiment_planning/experiment_planners/`. For example, the planner for `Attention U-Net` is called as ***nnUNetPlannerAttUNet***, and the plans file be saved as ***nnUNetPlansAttUNet***.
+3. So, to use extra U-Net variants, we need to use architecture-specific ***planners*** during preprocessing, and their corresponding ***plans*** file when training and testing.
+4. The various architecture-specific ***planners*** can be found in `nnunetv2/experiment_planning/experiment_planners/`. For example, the planner for `Attention U-Net` is called as ***nnUNetPlannerAttUNet***, and the plans file are saved as ***nnUNetPlansAttUNet***.
 
-Here, there are two possible course of actions during preprocessing, based on your previous activities:
+Here, there are two possible courses of action during preprocessing, based on your previous activities:
 1. Dataset has already been preprocessed (for 3d_fullres and/or 2d configurations).
 ```
 nnUNetv2_plan_experiment -d DATASET_ID -pl nnUNetPlannerAttUNet
