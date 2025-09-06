@@ -2,7 +2,7 @@ from typing import Union, List, Tuple
 from dynamic_network_architectures.architectures.unet import DWSConvUNet
 from dynamic_network_architectures.architectures.unet import FirstPatchDWSConvUNet
 from dynamic_network_architectures.architectures.unet import DwEnc_PwDec_UNet
-from dynamic_network_architectures.architectures.unet import PureDwPw_Unet
+from dynamic_network_architectures.architectures.unet import PureDwPw_UNet
 from nnunetv2.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
 
 
@@ -99,7 +99,7 @@ class nnUNetPlannerPureDwPwUNet(ExperimentPlanner):
         """
         super().__init__(dataset_name_or_id, gpu_memory_target_in_gb, preprocessor_name, plans_name,
                          overwrite_target_spacing, suppress_transpose)
-        self.UNet_class = PureDwPw_Unet
+        self.UNet_class = PureDwPw_UNet
 
     def generate_data_identifier(self, configuration_name: str) -> str:
         """
